@@ -1,0 +1,33 @@
+body {
+    background-color: #f5f7fa;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+header .navbar {
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+#bookContainer .card {
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+#bookContainer .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.card-footer .remove-btn {
+    background-color: #dc3545;
+    color: white;
+}
+
+.card-footer .remove-btn:hover {
+    background-color: #c82333;
+}
+.card-footer .savechanges-btn {
+    background-color: lightgreen;
+}
+.card-footer .savechanges-btn:hover {
+    background-color: white;
+    border-color: lightgreen;
+}

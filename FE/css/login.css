@@ -1,0 +1,56 @@
+.login-container{
+  background-color: #D3E4CD;
+    max-width:500px !important;
+    height: 600px;
+    margin: auto;
+    margin-top: 250px;
+    border-radius: 2%;
+    box-shadow: 0px 5px 30px rgba(0, 0, 0, 0.4);
+}
+body{
+    background-color: #EBE3D5 !important;
+    font-family: 'Times New Roman', Times, serif !important;
+}
+.Welcome-text{
+    text-align: center;
+    padding-top: 25px;
+    font-weight: 650;
+    font-size: 40px;
+}
+.SignIn-paragraph{
+    text-align: center;
+    font-size: 30px;
+}
+#email{
+    display: block;
+    margin: 0 auto;   
+    width: 65%;  
+    height: 45px;
+    margin-top:50px ;  
+    border-style: none;
+}
+#password{
+    display: block;
+    margin: 0 auto;   
+    width: 65%;  
+    height: 45px;
+    margin-top:50px ;  
+    border-style: none;
+}
+.login-Btn{
+    width: 80px;
+    height: 30px;
+    margin:  0 auto; 
+    display: block;
+    margin-top:30px ;
+}
+.reg-navigation1{
+    margin-left: 30px;
+    justify-content: center;
+    display: inline;
+}
+.reg-hyperlink{
+    max-width: 350px !important;
+    margin-left: 120px !important;
+    margin-top: 20px;
+}
