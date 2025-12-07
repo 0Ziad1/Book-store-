@@ -11,6 +11,8 @@ using Microsoft.Extensions.Logging;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.EntityFrameworkCore;
+
 
 namespace api.Controllers
 {
@@ -23,12 +25,15 @@ namespace api.Controllers
         {
             _context = context;
         }
-        [HttpGet]
-        public IActionResult GetAll()
+        [HttpGet("getAll")]
+        public async Task<IActionResult> GetAll()
         {
-            var users = _context.users.ToList().Select(u => u.ToUserDto());
-            return Ok(users);
+            var users = await _context.users.ToListAsync();
+            var usersDto = users.Select(u => u.ToUserDto()).ToList();
+            return Ok(usersDto);
         }
+
+
         [HttpGet("{id}")]
         public IActionResult getById([FromRoute] int id)
         {
@@ -38,6 +43,26 @@ namespace api.Controllers
                 return NotFound();
             }
             return Ok(user);
+        }
+        [HttpPut("update/{id}")]
+        public async Task<IActionResult> UpdateBook(int id, [FromBody] UpdateUserDto updatedUser)
+        {
+            var existingUser = await _context.users.FirstOrDefaultAsync(u => u.id == id);
+
+            if (existingUser == null)
+            {
+                return NotFound(new { message = "Book not found." });
+            }
+
+            // Update fields
+            existingUser.Name = updatedUser.Name;
+            existingUser.phoneNumber = updatedUser.phoneNumber;
+            existingUser.IsSuspended = updatedUser.IsSuspended;
+            existingUser.email = updatedUser.email;
+
+            await _context.SaveChangesAsync();
+
+            return Ok(new { message = "User updated successfully!" });
         }
         [HttpPost("register")]
         public IActionResult CreateNewUser([FromBody] CreateUserDto userDto)

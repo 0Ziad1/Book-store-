@@ -7,7 +7,7 @@ namespace api.DTOs.User
 {
     public class CreateUserDto
     {
-        public string Name { get; set; } = String.Empty;
+        public string Name { get; set; }
         public string phoneNumber { get; set; }
         public string password { get; set; }
         public string email {get;set;}
