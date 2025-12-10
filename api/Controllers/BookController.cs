@@ -79,6 +79,41 @@ namespace api.Controllers
 
             return Ok(new { message = "Book updated successfully!" });
         }
+        [HttpPost("borrow")]
+        public async Task<IActionResult> BorrowBook([FromBody] BorrowRequest req)
+        {
+            // 1. Get the book
+            var book = await _context.Books.FindAsync(req.BookId);
+            if (book == null) return NotFound("Book not found");
+
+            if (book.AvailableCopies <= 0)
+                return BadRequest("No available copies to borrow");
+
+            // 2. Create the transaction
+            var transaction = new Transaction
+            {
+                BookId = req.BookId,
+                PatronId = req.PatronId,
+                BorrowDate = DateTime.Now,
+                DueDate = DateTime.Now.AddDays(14), // 2 weeks loan period
+                Status = TransactionStatus.CheckedOut,
+                LateFees = 0
+            };
+
+            // 3. Reduce available copies
+            book.AvailableCopies--;
+
+            // 4. Save transaction
+            _context.Transactions.Add(transaction);
+            await _context.SaveChangesAsync();
+
+            return Ok(new
+            {
+                message = "Book borrowed successfully",
+                transaction
+            });
+        }
+
 
         // GET /api/books/{id}
         [HttpGet("{id}")]
